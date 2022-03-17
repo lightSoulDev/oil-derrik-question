@@ -1,0 +1,38 @@
+@startuml
+
+class Subject {
+    + observerList
+
+    + subscribeObserver(observer) : void
+    + unsubscribeObserver(observer): void
+    + notifyObservers(): void
+}
+
+note bottom of Subject
+<code>
+notifyObservers() {
+  for observer in observerList {
+    call observer.update()
+  }
+}
+</code>
+end note
+
+abstract class Observer {
+  + update()
+}
+
+class SomeObserverA {
+  + update()
+}
+
+class SomeObserverB {
+  + update()
+}
+
+Subject *-left- Observer
+skinparam groupInheritance 2
+Observer <|-- SomeObserverA
+Observer <|-- SomeObserverB
+
+@enduml
